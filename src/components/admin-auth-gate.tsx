@@ -3,12 +3,13 @@
 import { FormEvent, ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { KeyRound, LogIn, LogOut, Mail } from "lucide-react";
 import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
-import { createSupabaseBrowserClient } from "@/lib/supabase";
+import { createSupabaseBrowserClient, hasSupabaseConfig } from "@/lib/supabase";
 
 type View = "login" | "forgot" | "set-password";
 
 export function AdminAuthGate({ children }: { children: ReactNode }) {
-  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+  const configured = hasSupabaseConfig();
+  const supabase = useMemo(() => configured ? createSupabaseBrowserClient() : null, [configured]);
   const [session, setSession] = useState<Session | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
   const sessionUserId = useRef<string | null>(null);
 
   useEffect(() => {
+    if (!supabase) { setLoading(false); return; }
     function handleSession(nextSession: Session | null, event?: AuthChangeEvent) {
       const nextUserId = nextSession?.user.id ?? null;
       if (sessionUserId.current !== nextUserId) {
@@ -38,7 +40,7 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
   }, [supabase]);
 
   useEffect(() => {
-    if (!session || view === "set-password") return;
+    if (!supabase || !session || view === "set-password") return;
     let active = true;
     supabase.from("admin_members").select("email").eq("email", session.user.email?.toLowerCase() ?? "").maybeSingle().then(({ data, error }) => {
       if (active) setAuthorized(Boolean(data) && !error);
@@ -48,6 +50,7 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
 
   async function login(event: FormEvent) {
     event.preventDefault();
+    if (!supabase) return;
     setSubmitting(true);
     setMessage("");
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
@@ -57,6 +60,7 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
 
   async function requestPasswordReset(event: FormEvent) {
     event.preventDefault();
+    if (!supabase) return;
     setSubmitting(true);
     const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), { redirectTo: `${window.location.origin}/admin` });
     setMessage(error ? error.message : "Si el correo está habilitado, recibirá un enlace para crear una nueva contraseña.");
@@ -65,6 +69,7 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
 
   async function savePassword(event: FormEvent) {
     event.preventDefault();
+    if (!supabase) return;
     if (password.length < 8) return setMessage("La contraseña debe tener al menos 8 caracteres.");
     if (password !== passwordConfirmation) return setMessage("Las contraseñas no coinciden.");
     setSubmitting(true);
@@ -82,12 +87,14 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
   }
 
   async function logout() {
+    if (!supabase) return;
     await supabase.auth.signOut();
     setSession(null);
     setAuthorized(null);
     setView("login");
   }
 
+  if (!configured) return <section className="card admin-login"><KeyRound size={32} /><span className="eyebrow">Configuración pendiente</span><h2>Panel de administración</h2><p>Conectá Supabase en las variables de entorno para habilitar el acceso privado.</p></section>;
   if (loading) return <section className="card admin-login"><p>Verificando sesión…</p></section>;
 
   if (view === "set-password" && session) return <section className="card admin-login">

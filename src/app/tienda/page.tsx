@@ -7,7 +7,7 @@ import { ShopCatalog } from "@/components/shop-catalog";
 import { products } from "@/data/products";
 import { getSupabaseProducts } from "@/lib/supabase-products";
 
-export const metadata: Metadata = { title: "Tienda | Bulonera Agroindustrial", description: "Productos de bulonería, herramientas y suministros agroindustriales." };
+export const metadata: Metadata = { title: "Tienda | Shendo Osi", description: "Regalería, librería, bazar, accesorios y bijouterie." };
 export const dynamic = "force-dynamic";
 
 export default async function ShopPage({ searchParams }: { searchParams: Promise<{ marca?: string; rubro?: string }> }) {

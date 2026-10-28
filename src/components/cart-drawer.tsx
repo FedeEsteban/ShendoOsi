@@ -15,7 +15,8 @@ export function CartDrawer() {
     `Subtotal: ${formatCurrency(subtotal)}`,
     `Total por transferencia: ${formatCurrency(transferTotal)}`,
   ].join("\n");
-  const checkoutUrl = `https://wa.me/5492634564130?text=${encodeURIComponent(orderText)}`;
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const checkoutUrl = whatsappNumber ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}` : "https://www.instagram.com/shendo_osi";
 
   return (
     <>

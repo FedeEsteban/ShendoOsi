@@ -1,6 +1,6 @@
 import type { Product } from "@/data/products";
 
-export const productStorageKey = "bulonera-product-drafts";
+export const productStorageKey = "shendo-osi-product-drafts";
 
 export type LocalProductDraft = {
   id: string;

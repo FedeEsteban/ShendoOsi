@@ -4,7 +4,7 @@ import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import { ProductAdmin } from "@/components/product-admin";
 import { AdminAuthGate } from "@/components/admin-auth-gate";
 
-export const metadata: Metadata = { title: "Administrar productos | Bulonera Agroindustrial" };
+export const metadata: Metadata = { title: "Administrar productos | Shendo Osi" };
 
 export default function AdminProductsPage() {
   return <main className="admin-page"><div className="container">

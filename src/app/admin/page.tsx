@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, BarChart3, ChevronRight, CreditCard, MapPin, Package, Star, Store, TrendingUp } from "lucide-react";
 import { AdminAuthGate } from "@/components/admin-auth-gate";
 
-export const metadata: Metadata = { title: "Panel de administración | Bulonera Agroindustrial" };
+export const metadata: Metadata = { title: "Panel de administración | Shendo Osi" };
 
 export default function AdminPage() {
   return <main className="admin-page"><div className="container">

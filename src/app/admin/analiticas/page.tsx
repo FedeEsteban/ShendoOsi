@@ -4,7 +4,7 @@ import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import { AdminAuthGate } from "@/components/admin-auth-gate";
 import { AnalyticsAdmin } from "@/components/analytics-admin";
 
-export const metadata: Metadata = { title: "Analíticas | Bulonera Agroindustrial" };
+export const metadata: Metadata = { title: "Analíticas | Shendo Osi" };
 
 export default function AnalyticsPage() {
   return <main className="admin-page"><div className="container">

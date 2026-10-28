@@ -33,10 +33,10 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const destination = process.env.CONTACT_EMAIL || "bulonera@bagroindustrial.com";
+  const destination = process.env.CONTACT_EMAIL;
   const sender = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !sender) {
-    console.error("Faltan RESEND_API_KEY o CONTACT_FROM_EMAIL para enviar el formulario.");
+  if (!apiKey || !sender || !destination) {
+    console.error("Faltan RESEND_API_KEY, CONTACT_FROM_EMAIL o CONTACT_EMAIL para enviar el formulario.");
     return NextResponse.json({ error: "El envío de correo todavía no está configurado." }, { status: 503 });
   }
 

@@ -1,18 +1,5 @@
 import Link from "next/link";
-import {
-  CheckCircle2,
-  ClipboardList,
-  HardHat,
-  Landmark,
-  MapPin,
-  MessageCircle,
-  Ruler,
-  ShieldCheck,
-  Tractor,
-  Truck,
-  Wrench,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, BookOpen, Camera as Instagram, CheckCircle2, Gem, Gift, Heart, MessageCircle, PackageCheck, ShoppingBag, Sparkles, Truck, WalletCards } from "lucide-react";
 import { CartDrawer } from "@/components/cart-drawer";
 import { ContactForm } from "@/components/contact-form";
 import { Footer } from "@/components/footer";
@@ -21,226 +8,24 @@ import { ProductCard } from "@/components/product-card";
 import { products } from "@/data/products";
 import { getFeaturedProducts } from "@/lib/supabase-products";
 
-function BoltIcon({ size = 34 }: { size?: number }) {
-  return <svg width={size} height={size} viewBox="0 0 64 64" fill="none" aria-hidden="true">
-    <path d="M8 22 18 12h12l10 10v20L30 52H18L8 42V22Z" stroke="currentColor" strokeWidth="5" strokeLinejoin="round" />
-    <path d="M40 27h16v10H40M46 27v10M52 27v10" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-    <circle cx="24" cy="32" r="7" stroke="currentColor" strokeWidth="4" />
-  </svg>;
-}
-
 export const dynamic = "force-dynamic";
+const categories = [
+  { name: "Regalería", text: "Detalles lindos para celebrar, agradecer y sorprender.", icon: Gift, tone: "rose" },
+  { name: "Librería", text: "Papelería, escritura y objetos para crear todos los días.", icon: BookOpen, tone: "sage" },
+  { name: "Bazar", text: "Elegidos útiles y originales para darle vida a tu casa.", icon: Sparkles, tone: "cream" },
+  { name: "Accesorios", text: "Ese toque especial que transforma cualquier look.", icon: ShoppingBag, tone: "lavender" },
+  { name: "Bijouterie", text: "Brillos, texturas y piezas para usar o regalar.", icon: Gem, tone: "peach" },
+];
 
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts(products);
-  return (
-    <>
-      <Header />
-      <CartDrawer />
-
-      <main>
-        <section className="hero">
-          <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Depósito industrial" />
-          <div className="container hero-content">
-            <span className="eyebrow">Bulonera Agroindustrial</span>
-            <h1>Expertos en fijación</h1>
-            <p>Suministros agroindustriales, herramientas y bulonería de alta resistencia para campo, taller e industria.</p>
-            <Link className="button" href="/tienda">
-              Ver catálogo
-            </Link>
-          </div>
-        </section>
-
-        <section className="service-strip">
-          <div className="container grid grid-3">
-            <div className="service-item">
-              <Truck />
-              <div>
-                <h3>Envíos a todo el país</h3>
-                <p>Despachos por correo y transporte local.</p>
-              </div>
-            </div>
-            <div className="service-item">
-              <Landmark />
-              <div>
-                <h3>10% por transferencia</h3>
-                <p>Precio destacado en productos seleccionados.</p>
-              </div>
-            </div>
-            <div className="service-item">
-              <ShieldCheck />
-              <div>
-                <h3>Asesoramiento técnico</h3>
-                <p>Elegimos medida, resistencia y terminación.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="ofertas" className="section">
-          <div className="container">
-            <div className="section-head">
-              <div>
-                <span className="eyebrow">Ofertas</span>
-                <h2><Zap size={26} /> Ofertas destacadas</h2>
-              </div>
-              <Link className="link" href="/tienda">Ver catálogo completo</Link>
-            </div>
-            <div className="grid grid-4">
-              {featuredProducts.map((product) => (
-                <ProductCard product={product} key={product.id} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="catalogo" className="section alt">
-          <div className="container">
-            <div className="section-head">
-              <div>
-                <span className="eyebrow">Catálogo técnico</span>
-                <h2>Comprá por familia, medida o aplicación</h2>
-              </div>
-            </div>
-            <div className="grid grid-4">
-              {[
-                ["Bulonería", "Hexagonales, allen, arandelas, tuercas y fijaciones especiales.", BoltIcon],
-                ["Herramientas", "Manuales, eléctricas, medición, abrasivos y accesorios.", Wrench],
-                ["Agro y campo", "Repuestos, sujeción, acoples, cadenas y lubricantes.", Tractor],
-                ["Industria y obra", "Anclajes, químicos, consumibles, EPP y mantenimiento.", HardHat],
-              ].map(([title, text, Icon]) => (
-                <article className="card catalog-family-card" key={String(title)}>
-                  <Icon size={34} />
-                  <h3 style={{ marginTop: 16 }}>{String(title)}</h3>
-                  <p>{String(text)}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="rubros" className="section">
-          <div className="container">
-            <div className="section-head">
-              <div>
-                <span className="eyebrow">Lo que trabajamos</span>
-                <h2>Soluciones para taller, obra, campo e industria</h2>
-                <p>Un recorrido por las principales líneas que encontrás en nuestro stock.</p>
-              </div>
-              <Link className="link" href="/tienda">Ver todos los productos</Link>
-            </div>
-            <div className="rubros-grid">
-              {[
-                ["Bulonería y fijaciones", "Bulones métricos y en pulgadas, tornillos, tuercas, arandelas, remaches y abrazaderas.", BoltIcon],
-                ["Llaves y herramientas manuales", "Llaves combinadas y tubo, bocallaves, destornilladores, pinzas y juegos profesionales.", Wrench],
-                ["Mechas y perforación", "Mechas para acero, madera y mampostería, machos, terrajas y accesorios de perforación.", Ruler],
-                ["Corte y abrasivos", "Discos, sierras, hojas, lijas y consumibles para corte, desbaste y terminación.", HardHat],
-                ["Electricidad y taller", "Cables, fichas, cajas, iluminación, soldadura, adhesivos y productos para mantenimiento.", Zap],
-                ["Agro, obra y mantenimiento", "Elementos de sujeción, cadenas, lubricación y soluciones para equipos e instalaciones.", Tractor],
-              ].map(([title, text, Icon]) => (
-                <Link className="rubro-card" href={`/tienda?rubro=${encodeURIComponent(String(title))}`} key={String(title)}>
-                  <span className="rubro-icon"><Icon size={32} /></span>
-                  <span><strong>{String(title)}</strong><small>{String(text)}</small></span>
-                  <span className="rubro-link">Ver productos →</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="nosotros" className="section alt">
-          <div className="container grid grid-2" style={{ alignItems: "center" }}>
-            <div className="media-card storefront-card">
-              <img className="storefront-photo" src="/imagenes/portada-local.jpeg" alt="Frente del local de Bulonera Agroindustrial" />
-              <div className="stats">
-                <div className="stat"><strong>3+</strong><span>años</span></div>
-                <div className="stat"><strong>Gran</strong><span>variedad de stock</span></div>
-                <div className="stat schedule-stat"><strong>HORARIO</strong><span>8:00–13:00<br />15:00–19:30</span></div>
-              </div>
-            </div>
-            <div>
-              <span className="eyebrow">Quiénes somos</span>
-              <h2>Atención de mostrador con criterio técnico</h2>
-              <p>Venta minorista, atención mayorista y asesoramiento de aplicación para compras donde importan resistencia, medida, norma, terminación y disponibilidad.</p>
-              <p><CheckCircle2 size={18} /> Pedido por norma, medida, material o aplicación.</p>
-              <p><CheckCircle2 size={18} /> Retiro por mostrador, transporte local o correo.</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="marcas" className="section">
-          <div className="container">
-            <div className="section-head">
-              <div>
-                <span className="eyebrow">Marcas y proveedores</span>
-                <h2>Líneas para trabajo profesional y reposición constante</h2>
-              </div>
-            </div>
-            <div className="grid brand-grid">
-              {[
-                ["Bosch", "/imagenes/marcas/bosch.svg"],
-                ["Bahco", "/imagenes/marcas/bahco.svg"],
-                ["Dogo", "/imagenes/marcas/dogo.png"],
-                ["Stanley", "/imagenes/marcas/stanley.svg"],
-                ["Bremen", "/imagenes/marcas/bremen.png"],
-                ["Lusqtoff", "/imagenes/marcas/lusqtoff.png"],
-                ["Gamma", "/imagenes/marcas/gamma.png"],
-                ["BTA", "/imagenes/marcas/bta.jpg"],
-                ["Dowen Pagio", "/imagenes/marcas/dowen-pagio.png"],
-                ["Workpro", "/imagenes/marcas/workpro.png"],
-              ].map(([brand, logo]) => (
-                <Link href={`/tienda?marca=${encodeURIComponent(brand)}`} className={`brand-cell brand-${brand.toLowerCase()}`} key={brand} aria-label={`Ver productos ${brand}`}>
-                  <img src={logo} alt={`Logo ${brand}`} />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="empresas" className="section alt">
-          <div className="container grid grid-2">
-            <article className="card">
-              <ClipboardList size={34} />
-              <h2>Cotización para empresas</h2>
-              <p>Armá pedidos por caja cerrada, cantidad mayorista o lista de materiales. Respondemos con disponibilidad, precio por volumen y despacho.</p>
-              <a className="button" href="https://wa.me/5492634564130">
-                <MessageCircle size={18} /> Solicitar cotización
-              </a>
-            </article>
-            <article className="card">
-              <Ruler size={34} />
-              <h2>Referencia técnica rápida</h2>
-              <table className="table">
-                <tbody>
-                  <tr><td>Acero 8.8</td><td>Maquinaria y montaje general</td></tr>
-                  <tr><td>Inox A2/A4</td><td>Exterior, humedad, alimentos</td></tr>
-                  <tr><td>Galvanizado</td><td>Obra y agro a la intemperie</td></tr>
-                </tbody>
-              </table>
-            </article>
-          </div>
-        </section>
-
-        <section id="contacto" className="section alt">
-          <div className="container grid grid-2">
-            <div>
-              <span className="eyebrow">Sucursal y contacto</span>
-              <h2>Atención comercial para mostrador, campo y empresas</h2>
-              <div className="card">
-                <h3><MapPin size={20} /> Casa central</h3>
-                <p>Ruta Provincial 22 (Acceso Este), KM 1023, sobre lateral norte, Rodeo del Medio, Maipú, Mendoza. Retiro por mostrador, coordinación de transporte y atención a cuentas comerciales.</p>
-                <p><Truck size={18} /> Envíos por transporte local, Andreani o Correo Argentino.</p>
-              </div>
-            </div>
-            <ContactForm />
-          </div>
-        </section>
-      </main>
-
-      <a className="floating-whatsapp" href="https://wa.me/5492634564130" aria-label="Contactar por WhatsApp">
-        <svg className="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.84 9.84 0 0 0-8.51 14.76L2 22l5.38-1.41A9.99 9.99 0 0 0 12.04 22 10 10 0 0 0 12.04 2Zm0 18.18a8.12 8.12 0 0 1-4.14-1.13l-.3-.18-3.19.84.85-3.1-.2-.32a8.15 8.15 0 1 1 6.98 3.89Zm4.47-6.1c-.24-.12-1.45-.71-1.67-.79-.23-.08-.39-.12-.55.12-.16.25-.63.79-.77.95-.14.17-.28.19-.53.07-.24-.12-1.03-.38-1.96-1.21a7.38 7.38 0 0 1-1.36-1.69c-.14-.24-.02-.37.1-.49.11-.11.25-.28.37-.42.12-.14.16-.25.24-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.33-.75-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.65.31-.23.24-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.13.16 1.74 2.65 4.21 3.72.59.25 1.05.41 1.4.52.6.19 1.13.16 1.56.1.47-.07 1.45-.6 1.65-1.17.21-.57.21-1.06.15-1.17-.06-.1-.22-.16-.47-.28Z" /></svg>
-      </a>
-      <Footer />
-    </>
-  );
+  return <><Header /><CartDrawer /><main>
+    <section className="shendo-hero"><div className="container shendo-hero-grid"><div className="shendo-hero-copy"><span className="shendo-kicker"><Sparkles size={15} /> Cositas especiales</span><h1>Pequeñas cosas.<br /><em>Grandes alegrías.</em></h1><p>Regalos, papelería, bazar, accesorios y bijouterie elegidos para hacer más lindos tus días.</p><div className="hero-actions"><Link className="button" href="/tienda">Descubrir la tienda <ArrowRight size={18} /></Link><a className="button-outline" href="https://www.instagram.com/shendo_osi" target="_blank" rel="noreferrer"><Instagram size={18} /> Seguinos</a></div></div><div className="shendo-hero-art"><span className="doodle doodle-one">✦</span><span className="doodle doodle-two">♡</span><div className="hero-seal"><img src="/imagenes/shendo-logo-sello.png" alt="Shendo Osi" /></div><div className="hero-note">cosas bonitas<br />para regalarte<br />y regalar ✿</div></div></div></section>
+    <section className="service-strip shendo-strip"><div className="container grid grid-3"><div className="service-item"><Truck /><div><h3>Envíos</h3><p>Coordinamos la mejor opción para vos.</p></div></div><div className="service-item"><WalletCards /><div><h3>Pagá como prefieras</h3><p>Transferencia, tarjetas y Mercado Pago.</p></div></div><div className="service-item"><PackageCheck /><div><h3>Compra segura</h3><p>Preparamos cada pedido con mucho amor.</p></div></div></div></section>
+    <section id="catalogo" className="section shendo-categories"><div className="container"><div className="section-head shendo-section-head"><div><span className="eyebrow">Un mundo de cositas</span><h2>Encontrá eso que te hace feliz</h2></div><Link className="link" href="/tienda">Ver todo <ArrowRight size={16} /></Link></div><div className="category-bubbles">{categories.map(({ name, text, icon: Icon, tone }) => <Link className={`shendo-category ${tone}`} href={`/tienda?rubro=${encodeURIComponent(name)}`} key={name}><span className="category-icon"><Icon size={31} /></span><h3>{name}</h3><p>{text}</p><small>Explorar <ArrowRight size={14} /></small></Link>)}</div></div></section>
+    <section id="ofertas" className="section shendo-featured"><div className="container"><div className="section-head shendo-section-head"><div><span className="eyebrow">Nuestros elegidos</span><h2>Favoritos de Shendo</h2><p>Una selección de cositas que nos encantan.</p></div><Link className="link" href="/tienda">Ir a la tienda <ArrowRight size={16} /></Link></div><div className="grid grid-4">{featuredProducts.map((product) => <ProductCard product={product} key={product.id} />)}</div></div></section>
+    <section id="nosotros" className="section shendo-story"><div className="container shendo-story-grid"><div className="story-art"><div className="story-shape"><img src="/imagenes/shendo-logo-horizontal.png" alt="Shendo Osi" /></div><span className="story-tag"><Heart size={16} fill="currentColor" /> Elegido con amor</span></div><div className="story-copy"><span className="eyebrow">Sobre Shendo Osi</span><h2>Creemos en la magia de los pequeños detalles</h2><p>Shendo Osi es ese lugar donde encontrás una cosita especial sin estar buscándola. Seleccionamos objetos lindos, útiles y originales para acompañarte, regalar y celebrar lo cotidiano.</p><p><CheckCircle2 size={18} /> Productos elegidos con dedicación.</p><p><CheckCircle2 size={18} /> Atención cercana y personalizada.</p><Link className="button" href="/tienda">Conocé nuestros productos</Link></div></div></section>
+    <section className="section shendo-instagram"><div className="container instagram-panel"><div><span className="shendo-kicker"><Instagram size={15} /> @shendo_osi</span><h2>Más cositas lindas,<br />todos los días</h2><p>Novedades, ideas para regalar y todos nuestros ingresos en Instagram.</p></div><a className="button light-button" href="https://www.instagram.com/shendo_osi" target="_blank" rel="noreferrer">Ver Instagram <ArrowRight size={18} /></a></div></section>
+    <section id="contacto" className="section shendo-contact"><div className="container grid grid-2"><div><span className="eyebrow">Hablemos</span><h2>¿Buscás algo especial?</h2><p>Escribinos y te ayudamos a encontrar el regalo, accesorio o detalle perfecto.</p><div className="contact-social-card"><MessageCircle /><div><strong>También estamos en Instagram</strong><a href="https://www.instagram.com/shendo_osi" target="_blank" rel="noreferrer">@shendo_osi</a></div></div></div><ContactForm /></div></section>
+  </main><a className="floating-whatsapp floating-instagram" href="https://www.instagram.com/shendo_osi" target="_blank" rel="noreferrer" aria-label="Contactar por Instagram"><Instagram /></a><Footer /></>;
 }

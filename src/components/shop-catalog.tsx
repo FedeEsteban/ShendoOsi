@@ -13,12 +13,11 @@ function normalize(value: string) {
 }
 
 const rubroGroups: Record<string, string[]> = {
-  "Bulonería y fijaciones": ["bulon", "tornillo", "tuerca", "arandela", "remache", "abrazadera", "fijacion"],
-  "Llaves y herramientas manuales": ["llave", "bocallave", "destornillador", "pinza", "alicate", "martillo"],
-  "Mechas y perforación": ["mecha", "broca", "macho", "terraja", "taladro", "perforacion"],
-  "Corte y abrasivos": ["disco", "sierra", "hoja", "lija", "abrasivo", "corte", "desbaste"],
-  "Electricidad y taller": ["cable", "ficha", "electric", "caja", "iluminacion", "soldadura", "adhesivo", "pox"],
-  "Agro, obra y mantenimiento": ["agro", "cadena", "lubric", "obra", "anclaje", "tractor", "mantenimiento"],
+  "Regalería": ["regaleria", "regalo"],
+  "Librería": ["libreria", "papeleria", "agenda", "cuaderno", "lapicera"],
+  "Bazar": ["bazar", "taza", "cocina", "hogar"],
+  "Accesorios": ["accesorios", "neceser", "cartera", "billetera"],
+  "Bijouterie": ["bijouterie", "aros", "collar", "pulsera", "anillo"],
 };
 
 export function ShopCatalog({ products, initialBrand = "Todas", initialRubro = "Todos" }: { products: Product[]; initialBrand?: string; initialRubro?: string }) {
