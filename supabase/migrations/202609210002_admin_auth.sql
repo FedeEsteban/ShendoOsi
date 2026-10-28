@@ -4,8 +4,7 @@ create table public.admin_members (
 );
 
 insert into public.admin_members (email) values
-  ('bulonera@bagroindustrial.com'),
-  ('nahuelripoll33@gmail.com')
+  ('fedefernandez_7@hotmail.com')
 on conflict (email) do nothing;
 
 alter table public.admin_members enable row level security;

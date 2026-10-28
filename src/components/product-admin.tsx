@@ -467,8 +467,8 @@ export function ProductAdmin() {
     <section className="card admin-card">
       <div className="admin-heading"><div><span className="eyebrow">Carga manual</span><h2><PackagePlus size={24} /> Nuevo artículo</h2></div></div>
       <form className="product-form" onSubmit={submit}>
-        <label className="wide">Nombre<input required value={form.name} onChange={(e) => update("name", e.target.value)} /></label>
-        <label>Slug<input required value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="bulon-hexagonal-g5" /></label>
+        <label className="wide">Nombre<input required value={form.name} onChange={(e) => update("name", e.target.value)} placeholder="Termo Stanley 1 litro" /></label>
+        <label>Slug<input required value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="termo-stanley-1-litro" /></label>
         <label>SKU<input required value={form.sku} onChange={(e) => update("sku", e.target.value)} /></label>
         <label>Marca<input required value={form.brand} onChange={(e) => update("brand", e.target.value)} /></label>
         <label>Categoría<input required value={form.category} onChange={(e) => update("category", e.target.value)} /></label>

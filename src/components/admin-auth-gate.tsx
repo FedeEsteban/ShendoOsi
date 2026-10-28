@@ -54,7 +54,10 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
     setSubmitting(true);
     setMessage("");
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
-    setMessage(error ? "El correo o la contraseña no son correctos." : "");
+    if (!error) setMessage("");
+    else if (/email not confirmed/i.test(error.message)) setMessage("El correo todavía no fue confirmado en Supabase.");
+    else if (/invalid login credentials/i.test(error.message)) setMessage("El correo o la contraseña no coinciden con el usuario creado en Supabase.");
+    else setMessage(`No pudimos iniciar sesión: ${error.message}`);
     setSubmitting(false);
   }
 
